@@ -1,7 +1,7 @@
 
 
 class PolyTreeNode
-  attr_reader :parent, :children, :value
+  attr_accessor :parent, :children, :value
 
   def initialize(value)
     @parent = nil
@@ -9,20 +9,33 @@ class PolyTreeNode
     @value = value 
   end 
   
-  def remove_from_children(child)
-    @children.delete(child)
-  end 
+   
   
   def parent=(above_parents)
     if @parent == above_parents 
     elsif above_parents == nil 
       @parent.children.delete(self)
-      @parent = nil 
-    else 
-      @parent = above_parents
+      @parent = nil
+    elsif @parent == nil 
+      parent = above_parents 
       above_parents.children << self
+      @parent = above_parents
+    else 
+        @parent.children.delete(self)
+        above_parents.children << self
+        @parent = above_parents
     end
-
+  end 
+  
+  def add_child(child)
+    child.parent = self
+  end
+  
+  def remove_child(child)
+    child.parent = nil
+    unless @children.include?(child)
+      raise "Not our child"
+    end 
   end 
 
 end
@@ -30,9 +43,11 @@ end
 # n1 = PolyTreeNode.new("root1")
 # n2 = PolyTreeNode.new("root2")
 # n3 = PolyTreeNode.new("root3")
-# # 
 # 
-# 
+#  n2.parent = n1 
+#  n3.parent = n2
+ 
+ 
 # p n3.parent = nil 
 # p n3.parent
 # # connect n3 to n1
