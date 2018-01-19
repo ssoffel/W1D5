@@ -37,8 +37,30 @@ class PolyTreeNode
       raise "Not our child"
     end 
   end 
+  
+  def dfs(target_value)
+    return self if target_value == self.value
+    
+    self.children(target_value)
+    # child_arry = []
+    # return self if self.value == target_value 
+    # child_arry << self.children
+    # child_arry.each do |node| 
+    #   if node.value == target 
+    #     return node 
+    #   else 
+    #     child_arry << node.children 
+    #   end 
+    # end
+  end    
+    
+    
+  
 
 end
+
+ 
+
 
 # n1 = PolyTreeNode.new("root1")
 # n2 = PolyTreeNode.new("root2")
